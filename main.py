@@ -1,11 +1,23 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
+from models import supplier_pydantic, supplier_pydanticIn, Supplier
 
 app = FastAPI()
 
 @app.get("/")
 def index():
     return {"message": "go to /docs for api documentation"}
+
+@app.post("/supplier")
+async def add_supplier(supplier_info: supplier_pydanticIn): # type: ignore
+    supplier_obj = await Supplier.create(**supplier_info.dict(exclude_unset=True))
+    response = await supplier_pydantic.from_tortoise_orm(supplier_obj)
+    return {"data": response}
+
+@app.get("/supplier")
+async def get_all_suppliers():
+    response = await supplier_pydantic.from_queryset(Supplier.all())
+    return {"data": response}
 
 register_tortoise(
     app,
