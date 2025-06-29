@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
-from models import supplier_pydantic, supplier_pydanticIn, Supplier
+from models import supplier_pydantic, supplier_pydanticIn, Supplier, Product, product_pydanticIn, product_pydantic
 
 app = FastAPI()
 
@@ -40,11 +40,14 @@ async def update_supplier(supplier_id: int, update_info: supplier_pydanticIn): #
     response = await supplier_pydantic.from_tortoise_orm(supplier)
     return {"data": response}
 
-@app.delete("/supplier/{supplier_id}")
-async def delete_supplier(supplier_id: int):
-    supplier = await Supplier.get(id=supplier_id)
-    await supplier.delete()
-    return {"message": "Supplier deleted successfully"}
+@app.post("/product/{supplier_id}")
+async def add_product(supplier_id: int, product_details: product_pydanticIn): # type: ignore
+    supplier = await Supplier.get(id = supplier_id)
+    product = product_details.dict(exclude_unset=True)
+    product_details['revenue'] += product_details['quantity_sold'] * product_details['unit_price']
+    product_obj = await Product.create(**product, supplied_by=supplier)
+    response = await product_pydantic.from_tortoise_orm(product_obj)
+    return {"data": response}
 
 register_tortoise(
     app,
