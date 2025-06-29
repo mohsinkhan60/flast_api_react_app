@@ -59,6 +59,29 @@ async def specific_product(id: int):
     response = await product_pydantic.from_queryset_single(Product.get(id=id))
     return {"data": response}
 
+@app.put("/product/{id}")
+async def update_product(id: int, update_details: product_pydanticIn): # type: ignore
+    product = await Product.get(id=id)
+    update_info = update_details.dict(exclude_unset=True)
+    if "name" in update_info:
+        product.name = update_info["name"]
+    if "quantity_in_stock" in update_info:
+        product.quantity_in_stock = update_info["quantity_in_stock"]
+    if "quantity_sold" in update_info:
+        product.quantity_sold = update_info["quantity_sold"]
+    if "unit_price" in update_info:
+        product.unit_price = update_info["unit_price"]
+    product.revenue += product.quantity_sold * product.unit_price
+    await product.save()
+    response = await product_pydantic.from_tortoise_orm(product)
+    return {"data": response}
+
+@app.delete("/product/{id}")
+async def delete_product(id: int):
+    product = await Product.get(id=id)
+    await product.delete()
+    return {"message": "Product deleted successfully"}
+
 register_tortoise(
     app,
     db_url='sqlite://database.sqlite3',
