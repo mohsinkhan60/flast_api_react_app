@@ -41,11 +41,11 @@ async def update_supplier(supplier_id: int, update_info: supplier_pydanticIn): #
     return {"data": response}
 
 @app.post("/product/{supplier_id}")
-async def add_product(supplier_id: int, product_details: product_pydanticIn): # type: ignore
+async def add_product(supplier_id: int, products_details: product_pydanticIn): # type: ignore
     supplier = await Supplier.get(id = supplier_id)
-    product = product_details.dict(exclude_unset=True)
-    product_details['revenue'] += product_details['quantity_sold'] * product_details['unit_price']
-    product_obj = await Product.create(**product, supplied_by=supplier)
+    products_details = products_details.dict(exclude_unset=True)
+    products_details['revenue'] += products_details['quantity_sold'] * products_details['unit_price']
+    product_obj = await Product.create(**products_details, supplied_by=supplier)
     response = await product_pydantic.from_tortoise_orm(product_obj)
     return {"data": response}
 
@@ -71,7 +71,7 @@ async def update_product(id: int, update_details: product_pydanticIn): # type: i
         product.quantity_sold = update_info["quantity_sold"]
     if "unit_price" in update_info:
         product.unit_price = update_info["unit_price"]
-    product.revenue += product.quantity_sold * product.unit_price
+    product.revenue += (product.quantity_sold * product.unit_price) + product.revenue
     await product.save()
     response = await product_pydantic.from_tortoise_orm(product)
     return {"data": response}
