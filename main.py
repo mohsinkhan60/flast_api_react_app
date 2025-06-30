@@ -16,7 +16,23 @@ from dotenv import dotenv_values
 # credentials
 credentials = dotenv_values(".env")
 
+# Adding CORS
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+# adding CORS urls
+origns = [
+    'http://localhost:3000'
+]
+# add middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origns,  # allows all origins
+    allow_credentials=True,  # allows cookies to be sent
+    allow_methods=["*"],  # allows all methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # allows all headers
+)
 
 @app.get("/")
 def index():
