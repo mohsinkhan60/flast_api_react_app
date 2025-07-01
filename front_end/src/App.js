@@ -2,8 +2,8 @@ import { BrowserRouter, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import { ProductProvider } from "./ProductContext";
-import ProductsTable from "./ProductsTable";
 import { Container, Row, Col } from "react-bootstrap";
+import ProductsTable from "./components/ProductsTable";
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { ProductContext } from "./ProductContext";
+import { ProductContext } from "../ProductContext";
 import ProductRow from "./ProductRow";
 
 const ProductsTable = () => {
