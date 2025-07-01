@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import { ProductProvider } from "./ProductContext";
 import { Container, Row, Col } from "react-bootstrap";
 import ProductsTable from "./components/ProductsTable";
+import AddProducts from "./components/AddProducts";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
             </Col>
           </Row>
         </Container>
-        <Routes>{/* Your <Route> components go here */}</Routes>
+        <Routes>
+          <Route exact path="/addproduct" Component={AddProducts} />
+        </Routes>
       </ProductProvider>
     </BrowserRouter>
   );

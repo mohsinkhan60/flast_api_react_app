@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button, Card, Container } from "react-bootstrap";
 
 const AddProducts = () => {
   const [productInfo, setProductInfo] = useState({
@@ -10,8 +10,9 @@ const AddProducts = () => {
     Revenue: "",
     Supplier: "",
   });
+
   const updateForm = (e) => {
-    setProductInfo({ ...productInfo, [e.target.name]: [e.target.value] });
+    setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
   };
 
   const postData = async (e) => {
@@ -22,14 +23,9 @@ const AddProducts = () => {
 
     const response = await fetch(url, {
       method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
       body: JSON.stringify({
         name: productInfo["ProductName"],
         quantity_in_stock: productInfo["QuantityInStock"],
@@ -38,13 +34,15 @@ const AddProducts = () => {
         revenue: productInfo["Revenue"],
       }),
     });
-    response.json().then((response) => {
-      if (response.status === "ok") {
-        alert("Product added successfully");
-      } else {
-        alert("Failed to add product");
-      }
-    });
+
+    const data = await response.json();
+
+    if (data.status === "ok") {
+      alert("Product added successfully");
+    } else {
+      alert("Failed to add product");
+    }
+
     setProductInfo({
       ProductName: "",
       QuantityInStock: "",
@@ -54,84 +52,87 @@ const AddProducts = () => {
       Supplier: "",
     });
   };
+
   return (
-    <Card>
-      <Card.Body>
-        <Form
-        onSubmit = {postData}
-        >
-          <Form.Group controlId="ProductName">
-            <Form.Label>Product Name</Form.Label>
-            <Form.Control
-              type="text"
-              name="ProductName"
-              value={productInfo.ProductName}
-              onChange={updateForm}
-              placeholder="Product Name"
-            />
-          </Form.Group>
+    <Container className="mt-4">
+      <Card className="shadow-sm">
+        <Card.Body>
+          <h4 className="mb-4 text-center">Add New Product</h4>
+          <Form onSubmit={postData}>
+            <Form.Group controlId="ProductName" className="mb-3">
+              <Form.Label>Product Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="ProductName"
+                value={productInfo.ProductName}
+                onChange={updateForm}
+                placeholder="Enter product name"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="QuantityInStock">
-            <Form.Label>Quantity In Stock</Form.Label>
-            <Form.Control
-              type="number"
-              name="QuantityInStock"
-              value={productInfo.QuantityInStock}
-              onChange={updateForm}
-              placeholder="Quantity In Stock"
-            />
-          </Form.Group>
+            <Form.Group controlId="QuantityInStock" className="mb-3">
+              <Form.Label>Quantity In Stock</Form.Label>
+              <Form.Control
+                type="number"
+                name="QuantityInStock"
+                value={productInfo.QuantityInStock}
+                onChange={updateForm}
+                placeholder="Enter quantity in stock"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="QuantitySold">
-            <Form.Label>Quantity Sold</Form.Label>
-            <Form.Control
-              type="number"
-              name="QuantitySold"
-              value={productInfo.QuantitySold}
-              onChange={updateForm}
-              placeholder="Quantity Sold"
-            />
-          </Form.Group>
+            <Form.Group controlId="QuantitySold" className="mb-3">
+              <Form.Label>Quantity Sold</Form.Label>
+              <Form.Control
+                type="number"
+                name="QuantitySold"
+                value={productInfo.QuantitySold}
+                onChange={updateForm}
+                placeholder="Enter quantity sold"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="UnitPrice">
-            <Form.Label>Unit Price</Form.Label>
-            <Form.Control
-              type="number"
-              name="UnitPrice"
-              value={productInfo.UnitPrice}
-              onChange={updateForm}
-              placeholder="Unit Price"
-            />
-          </Form.Group>
+            <Form.Group controlId="UnitPrice" className="mb-3">
+              <Form.Label>Unit Price</Form.Label>
+              <Form.Control
+                type="number"
+                name="UnitPrice"
+                value={productInfo.UnitPrice}
+                onChange={updateForm}
+                placeholder="Enter unit price"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="Revenue">
-            <Form.Label>Revenue</Form.Label>
-            <Form.Control
-              type="number"
-              name="Revenue"
-              value={productInfo.Revenue}
-              onChange={updateForm}
-              placeholder="Revenue"
-            />
-          </Form.Group>
+            <Form.Group controlId="Revenue" className="mb-3">
+              <Form.Label>Revenue</Form.Label>
+              <Form.Control
+                type="number"
+                name="Revenue"
+                value={productInfo.Revenue}
+                onChange={updateForm}
+                placeholder="Enter revenue"
+              />
+            </Form.Group>
 
-          <Form.Group controlId="Supplier">
-            <Form.Label>Supplier</Form.Label>
-            <Form.Control
-              type="number"
-              name="Supplier"
-              value={productInfo.Supplier}
-              onChange={updateForm}
-              placeholder="Supplier"
-            />
-          </Form.Group>
+            <Form.Group controlId="Supplier" className="mb-4">
+              <Form.Label>Supplier ID</Form.Label>
+              <Form.Control
+                type="number"
+                name="Supplier"
+                value={productInfo.Supplier}
+                onChange={updateForm}
+                placeholder="Enter supplier ID"
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+            <Button variant="primary" type="submit" className="w-100">
+              Submit
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
+
 export default AddProducts;
