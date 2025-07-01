@@ -1,4 +1,4 @@
-const ProductRow = ({ id, name, quantity_in_stock, quantity_sold, unit_price, revenue }) => {
+const ProductRow = ({ id, name, quantity_in_stock, quantity_sold, unit_price, revenue, handleDelete }) => {
   return (
     <tr>
       <td>{id}</td>
@@ -10,7 +10,7 @@ const ProductRow = ({ id, name, quantity_in_stock, quantity_sold, unit_price, re
       <td>
         <button className="btn btn-outline-info btn-sm me-2">Update</button>
         <button className="btn btn-outline-success btn-sm me-2">Supplier</button>
-        <button className="btn btn-outline-danger btn-sm">Delete</button>
+        <button onClick={() => handleDelete(id)} className="btn btn-outline-danger btn-sm">Delete</button>
       </td>
     </tr>
   );

@@ -6,6 +6,27 @@ import ProductRow from "./ProductRow";
 
 const ProductsTable = () => {
   const [products, setProducts] = useContext(ProductContext);
+  const handleDelete = (id) => {
+    fetch("http://127.0.0.1:8000/product/" + id, {
+      method: "DELETE",
+      headers: {
+        accept: "application/json",
+      }
+      .then(res => {
+        return res.json()
+      })
+      .then(result => {
+        if(result.status === "ok") {
+          const filteredProducts = products.data.filter(product => product.id !== id);
+          setProducts({ data: [...filteredProducts] });
+          alert("Product deleted successfully");
+        }
+        else {
+          alert("Failed to delete product");
+        }
+      })
+    });
+  };
   useEffect(() => {
     fetch("http://127.0.0.1:8000/product")
       .then((res) => {
@@ -44,6 +65,7 @@ const ProductsTable = () => {
             unit_price={product.unit_price}
             revenue={product.revenue}
             key={product.id}
+            handleDelete={handleDelete}
           />
         ))}
       </tbody>
