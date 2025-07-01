@@ -13,14 +13,14 @@ function App() {
         <NavBar />
         <Container className="mt-4 mb-4">
           <Row className="justify-content-center">
-            <Col xs={12} sm={0}>
-              <ProductsTable />
+            <Col xs={12}>
+              <Routes>
+                <Route path="/" element={<ProductsTable />} />
+                <Route path="/addproduct" element={<AddProducts />} />
+              </Routes>
             </Col>
           </Row>
         </Container>
-        <Routes>
-          <Route exact path="/addproduct" Component={AddProducts} />
-        </Routes>
       </ProductProvider>
     </BrowserRouter>
   );
