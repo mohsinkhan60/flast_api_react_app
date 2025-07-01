@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Badge,
   Button,
@@ -13,6 +13,17 @@ import { ProductContext } from "../ProductContext";
 
 const NavBar = () => {
    const [products, setProducts] = useContext(ProductContext)
+   const [search, setSearch] = useState("");
+  //  console.log(search)
+   const updateSearch = (e) => {
+    setSearch(e.target.value);
+    
+   }
+   const filerProduct = (e) => {
+    e.preventDefault();
+    const product = products.data.filter((product) => product.name.toLowerCase() === search.toLowerCase());
+    setProducts({ data: [...product] });
+   }
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
@@ -25,7 +36,7 @@ const NavBar = () => {
             </Badge>
           </Nav>
 
-          <Form className="d-flex align-items-center">
+          <Form onSubmit={filerProduct} className="d-flex align-items-center">
             <Link
               to="/addproduct"
               className="btn btn-primary btn-sm me-3 w-100"
@@ -34,6 +45,8 @@ const NavBar = () => {
             </Link>
             <FormControl
               type="search"
+              value={search}
+              onChange={updateSearch}
               placeholder="Search"
               className="me-2"
               aria-label="Search"
