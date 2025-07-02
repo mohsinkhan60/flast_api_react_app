@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { UpdateContext } from "../updateProductContext";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProduct = () => {
   const [updateProductInfo, setUpdateProductInfo] = useContext(UpdateContext);
+  const navigate = useNavigate();
 
   const updateForm = (e) => {
     setUpdateProductInfo({
@@ -12,10 +14,52 @@ const UpdateProduct = () => {
     });
   };
 
+  const postData = async (e) => {
+    e.preventDefault();
+
+    const url =
+      "http://localhost:8000/product/" + updateProductInfo["ProductId"];
+
+    const response = await fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: updateProductInfo["product_name"],
+        quantity_in_stock: updateProductInfo["quantity_in_stock"],
+        quantity_sold: updateProductInfo["quantity_sold"],
+        unit_price: updateProductInfo["unit_price"],
+        revenue: updateProductInfo["revenue"],
+      }),
+    });
+
+    response.json().then((resp) => {
+      if (resp.status === "ok") {
+        alert("Product updated");
+      } else {
+        alert("Failed to update product");
+      }
+    });
+
+    setUpdateProductInfo({
+      ProductName: "",
+      QuantityInStock: "",
+      QuantitySold: "",
+      UnitPrice: "",
+      Revenue: "",
+      ProductId: "",
+    });
+    navigate("/");
+  };
+
   return (
     <Card>
       <Card.Body>
-        <Form>
+        <Form onSubmit={postData}>
           <Form.Group controlId="product_name">
             <Form.Label>Product Name</Form.Label>
             <Form.Control
