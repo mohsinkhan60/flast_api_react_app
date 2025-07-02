@@ -11,22 +11,23 @@ const ProductsTable = () => {
       method: "DELETE",
       headers: {
         accept: "application/json",
-      }
-      .then(res => {
-        return res.json()
-      })
+      },
+    })
+      .then(res => res.json())
       .then(result => {
-        if(result.status === "ok") {
+        if (result.message === "Product deleted successfully") {
           const filteredProducts = products.data.filter(product => product.id !== id);
           setProducts({ data: [...filteredProducts] });
           alert("Product deleted successfully");
-        }
-        else {
+        } else {
           alert("Failed to delete product");
         }
-      })
-    });
+      });
   };
+
+  const handleUpdate = (id)  => {
+    console.log("Mohsin", id);
+  }
   useEffect(() => {
     fetch("http://127.0.0.1:8000/product")
       .then((res) => {
@@ -66,6 +67,7 @@ const ProductsTable = () => {
             revenue={product.revenue}
             key={product.id}
             handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
           />
         ))}
       </tbody>
