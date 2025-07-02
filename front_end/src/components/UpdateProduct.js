@@ -46,11 +46,11 @@ const UpdateProduct = () => {
     });
 
     setUpdateProductInfo({
-      ProductName: "",
-      QuantityInStock: "",
-      QuantitySold: "",
-      UnitPrice: "",
-      Revenue: "",
+      product_name: "",
+      quantity_in_stock: "",
+      quantity_sold: "",
+      unit_price: "",
+      revenue: "",
       ProductId: "",
     });
     navigate("/");
