@@ -3,9 +3,11 @@ import { useContext, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { ProductContext } from "../ProductContext";
 import ProductRow from "./ProductRow";
+import { useNavigate } from "react-router-dom";
 
 const ProductsTable = () => {
   const [products, setProducts] = useContext(ProductContext);
+  let navigate = useNavigate();
   const handleDelete = (id) => {
     fetch("http://127.0.0.1:8000/product/" + id, {
       method: "DELETE",
@@ -26,8 +28,9 @@ const ProductsTable = () => {
   };
 
   const handleUpdate = (id)  => {
-    console.log("Mohsin", id);
+    navigate(`/updateproduct/${id}`);
   }
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/product")
       .then((res) => {
