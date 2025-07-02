@@ -6,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ProductsTable from "./components/ProductsTable";
 import AddProducts from "./components/AddProducts";
 import UpdateProduct from "./components/UpdateProduct";
+import UpdateProductContextProvider from "./updateProductContext";
 
 function App() {
   return (
@@ -15,11 +16,17 @@ function App() {
         <Container className="mt-4 mb-4">
           <Row className="justify-content-center">
             <Col xs={12}>
-              <Routes>
-                <Route exact path="/" element={<ProductsTable />} />
-                <Route exact path="/updateproduct/:id" element={<UpdateProduct />} />
-                <Route exact path="/addproduct" element={<AddProducts />} />
-              </Routes>
+              <UpdateProductContextProvider>
+                <Routes>
+                  <Route exact path="/" element={<ProductsTable />} />
+                  <Route
+                    exact
+                    path="/updateproduct/:id"
+                    element={<UpdateProduct />}
+                  />
+                  <Route exact path="/addproduct" element={<AddProducts />} />
+                </Routes>
+              </UpdateProductContextProvider>
             </Col>
           </Row>
         </Container>

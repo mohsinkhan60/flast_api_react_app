@@ -4,9 +4,12 @@ import { Table } from "react-bootstrap";
 import { ProductContext } from "../ProductContext";
 import ProductRow from "./ProductRow";
 import { useNavigate } from "react-router-dom";
+import { UpdateContext } from "../updateProductContext";
 
 const ProductsTable = () => {
   const [products, setProducts] = useContext(ProductContext);
+  const [updateProductInfo, setUpdateProductInfo] = useContext(UpdateContext);
+  // console.log(updateProductInfo)
   let navigate = useNavigate();
   const handleDelete = (id) => {
     fetch("http://127.0.0.1:8000/product/" + id, {
@@ -15,10 +18,12 @@ const ProductsTable = () => {
         accept: "application/json",
       },
     })
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         if (result.message === "Product deleted successfully") {
-          const filteredProducts = products.data.filter(product => product.id !== id);
+          const filteredProducts = products.data.filter(
+            (product) => product.id !== id
+          );
           setProducts({ data: [...filteredProducts] });
           alert("Product deleted successfully");
         } else {
@@ -27,9 +32,19 @@ const ProductsTable = () => {
       });
   };
 
-  const handleUpdate = (id)  => {
+  const handleUpdate = (id) => {
+    const product = products.data.filter((product) => product.id === id)[0];
+    // console.log(product);
+    setUpdateProductInfo({
+      product_name: product.name,
+      quantity_in_stock: product.quantity_in_stock,
+      quantity_sold: product.quantity_sold,
+      unit_price: product.unit_price,
+      revenue: product.revenue,
+      ProductId: id,
+    });
     navigate(`/updateproduct/${id}`);
-  }
+  };
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/product")
