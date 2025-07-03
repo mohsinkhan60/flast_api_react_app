@@ -7,6 +7,7 @@ import ProductsTable from "./components/ProductsTable";
 import AddProducts from "./components/AddProducts";
 import UpdateProduct from "./components/UpdateProduct";
 import UpdateProductContextProvider from "./updateProductContext";
+import SupplierTable from "./components/SupplierTable";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <UpdateProductContextProvider>
                 <Routes>
                   <Route exact path="/" element={<ProductsTable />} />
+                  <Route exact path="/supplier" element={<SupplierTable />} />
                   <Route
                     exact
                     path="/updateproduct/:id"

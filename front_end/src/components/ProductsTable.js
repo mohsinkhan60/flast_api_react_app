@@ -86,6 +86,7 @@ const ProductsTable = () => {
             key={product.id}
             handleDelete={handleDelete}
             handleUpdate={handleUpdate}
+            handleSupplier={() => navigate("/supplier")}
           />
         ))}
       </tbody>
