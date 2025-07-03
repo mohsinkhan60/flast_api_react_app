@@ -1,4 +1,4 @@
-const SupplierRow = ({ id, name, company, email, phone }) => {
+const SupplierRow = ({ id, name, company, email, phone, handleUpdate }) => {
   return (
     <tr>
       <td>{id}</td>
@@ -8,7 +8,7 @@ const SupplierRow = ({ id, name, company, email, phone }) => {
       <td>{phone}</td>
       <td>
         <button
-          // onClick={() => handleUpdate(id)}
+          onClick={() => handleUpdate(id)}
           className="btn btn-outline-info btn-sm me-2"
         >
           Update
@@ -17,7 +17,7 @@ const SupplierRow = ({ id, name, company, email, phone }) => {
           // onClick={() => handleSupplier()}
           className="btn btn-outline-success btn-sm me-2"
         >
-          Supplier
+          Sent Email
         </button>
         <button
           // onClick={() => handleDelete(id)}

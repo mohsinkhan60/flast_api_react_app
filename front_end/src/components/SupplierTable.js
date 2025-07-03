@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import SupplierRow from "./SupplierRow";
+import { UpdateSupplierContext } from "../updateSupplierContext";
+import { useNavigate } from "react-router-dom";
 
 const SupplierTable = () => {
   const [supplier, setSupplier] = useState({ data: [] });
+    const [updateSupplierInfo, setUpdateSupplierInfo] = useContext(UpdateSupplierContext);
+      let navigate = useNavigate();
+  
   // console.log(supplier);
 
   useEffect(() => {
@@ -16,6 +21,18 @@ const SupplierTable = () => {
         setSupplier({ data: [...result.data] });
       });
   }, []);
+
+  const handleUpdate = (id) => {
+    const supp = supplier.data.filter((supp) => supp.id === id)[0];
+    setUpdateSupplierInfo({
+      id: supp.id,
+      name: supp.name,
+      company: supp.company,
+      email: supp.email,
+      phone: supp.phone,
+    })
+    navigate(`/updatesupplier/${id}`);
+  }
   return (
     <Table
       className="item-center flex justify-content-center"
@@ -53,7 +70,7 @@ const SupplierTable = () => {
             phone={suppply.phone}
             key={suppply.id}
             // handleDelete={handleDelete}
-            // handleUpdate={handleUpdate}
+            handleUpdate={handleUpdate}
             // handleSupplier={() => navigate("/supplier")}
           />
         ))}

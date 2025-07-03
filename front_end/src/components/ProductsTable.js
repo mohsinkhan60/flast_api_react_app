@@ -10,7 +10,7 @@ const ProductsTable = () => {
   const [products, setProducts] = useContext(ProductContext);
   const [updateProductInfo, setUpdateProductInfo] = useContext(UpdateContext);
   // console.log(updateProductInfo)
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const handleDelete = (id) => {
     fetch("http://127.0.0.1:8000/product/" + id, {
       method: "DELETE",

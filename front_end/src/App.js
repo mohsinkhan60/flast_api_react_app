@@ -8,6 +8,8 @@ import AddProducts from "./components/AddProducts";
 import UpdateProduct from "./components/UpdateProduct";
 import UpdateProductContextProvider from "./updateProductContext";
 import SupplierTable from "./components/SupplierTable";
+import UpdateSupplier from "./components/UpdateSupplier";
+import UpdateSupplierContextProvider from "./updateSupplierContext";
 
 function App() {
   return (
@@ -18,16 +20,23 @@ function App() {
           <Row className="justify-content-center">
             <Col xs={12}>
               <UpdateProductContextProvider>
-                <Routes>
-                  <Route exact path="/" element={<ProductsTable />} />
-                  <Route exact path="/supplier" element={<SupplierTable />} />
-                  <Route
-                    exact
-                    path="/updateproduct/:id"
-                    element={<UpdateProduct />}
-                  />
-                  <Route exact path="/addproduct" element={<AddProducts />} />
-                </Routes>
+                <UpdateSupplierContextProvider>
+                  <Routes>
+                    <Route exact path="/" element={<ProductsTable />} />
+                    <Route exact path="/supplier" element={<SupplierTable />} />
+                    <Route
+                      exact
+                      path="/updateproduct/:id"
+                      element={<UpdateProduct />}
+                    />
+                    <Route
+                      exact
+                      path="/updatesupplier/:id"
+                      element={<UpdateSupplier />}
+                    />
+                    <Route exact path="/addproduct" element={<AddProducts />} />
+                  </Routes>
+                </UpdateSupplierContextProvider>
               </UpdateProductContextProvider>
             </Col>
           </Row>
