@@ -7,6 +7,7 @@ const SupplierRow = ({ id, name, company, email, phone, handleUpdate }) => {
       <td>{email}</td>
       <td>{phone}</td>
       <td>
+
         <button
           onClick={() => handleUpdate(id)}
           className="btn btn-outline-info btn-sm me-2"

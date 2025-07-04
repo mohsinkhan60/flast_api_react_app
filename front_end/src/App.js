@@ -10,6 +10,7 @@ import UpdateProductContextProvider from "./updateProductContext";
 import SupplierTable from "./components/SupplierTable";
 import UpdateSupplier from "./components/UpdateSupplier";
 import UpdateSupplierContextProvider from "./updateSupplierContext";
+import AddSupplier from "./components/AddSupplier";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                       element={<UpdateSupplier />}
                     />
                     <Route exact path="/addproduct" element={<AddProducts />} />
+                    <Route exact path="/addsupplier" element={<AddSupplier />} />
                   </Routes>
                 </UpdateSupplierContextProvider>
               </UpdateProductContextProvider>
