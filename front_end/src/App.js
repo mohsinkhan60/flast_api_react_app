@@ -1,17 +1,16 @@
+import { Col, Container, Row } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar";
-import { ProductProvider } from "./ProductContext";
-import { Container, Row, Col } from "react-bootstrap";
-import ProductsTable from "./components/ProductsTable";
 import AddProducts from "./components/AddProducts";
-import UpdateProduct from "./components/UpdateProduct";
-import UpdateProductContextProvider from "./updateProductContext";
-import SupplierTable from "./components/SupplierTable";
-import UpdateSupplier from "./components/UpdateSupplier";
-import UpdateSupplierContextProvider from "./updateSupplierContext";
 import AddSupplier from "./components/AddSupplier";
-import SentEmail from "./components/SentEmail";
+import NavBar from "./components/NavBar";
+import ProductsTable from "./components/ProductsTable";
+import SupplierTable from "./components/SupplierTable";
+import UpdateProduct from "./components/UpdateProduct";
+import UpdateSupplier from "./components/UpdateSupplier";
+import { ProductProvider } from "./ProductContext";
+import UpdateProductContextProvider from "./updateProductContext";
+import UpdateSupplierContextProvider from "./updateSupplierContext";
 
 function App() {
   return (
