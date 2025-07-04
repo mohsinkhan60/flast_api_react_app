@@ -63,10 +63,6 @@ const SupplierTable = () => {
       });
   }
 
-  const sentEmail = () => {
-    navigate("/sentemail");
-  }
-
   return (
     <div className="mt-4 container">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -116,7 +112,6 @@ const SupplierTable = () => {
               email={suppply.email}
               phone={suppply.phone}
               key={suppply.id}
-              sentEmail={sentEmail}
               handleDelete={handleDelete}
               handleUpdate={handleUpdate}
               // handleSupplier={() => navigate("/supplier")}

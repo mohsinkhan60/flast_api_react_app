@@ -26,7 +26,6 @@ function App() {
                   <Routes>
                     <Route exact path="/" element={<ProductsTable />} />
                     <Route exact path="/supplier" element={<SupplierTable />} />
-                    <Route exact path="/sentemail" element={<SentEmail />} />
                     <Route
                       exact
                       path="/updateproduct/:id"

@@ -146,6 +146,7 @@ async def send_email(product_id: int, content: EmailContent):
     suppier_email = [supplier.email]
 
     html = f"""
+    <h5>Welcome To</h5> 
     <h5>Mohsin khan Business</h5> 
     <br/>
     <p>{content.message}</p>
