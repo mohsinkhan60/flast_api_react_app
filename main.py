@@ -54,6 +54,12 @@ async def get_specific_supplier(supplier_id: int):
     response = await supplier_pydantic.from_queryset_single(Supplier.get(id=supplier_id))
     return {"data": response}
 
+@app.delete("/supplier/{id}")
+async def delete_suppllier(id: int):
+    supplier = await Supplier.get(id=id)
+    await supplier.delete()
+    return {"message": "Product deleted successfully"}
+
 @app.put("/supplier/{supplier_id}")
 async def update_supplier(supplier_id: int, update_info: supplier_pydanticIn): # type: ignore
     supplier = await Supplier.get(id=supplier_id)

@@ -38,12 +38,43 @@ const SupplierTable = () => {
   const addSupplier = () => {
     navigate("/addsupplier");
   };
+  const back = () => {
+    navigate("/");
+  };
+
+  const handleDelete = (id) => {
+        fetch('http://127.0.0.1:8000/supplier/' + id, {
+      method: "DELETE",
+      headers: {
+        accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.message === "Product deleted successfully") {
+          const filteredProducts = supplier.data.filter(
+            (product) => product.id !== id
+          );
+          setSupplier({ data: [...filteredProducts] });
+          alert("Product deleted successfully");
+        } else {
+          alert("Failed to delete product");
+        }
+      });
+  }
   return (
     <div className="mt-4 container">
-      <div className="d-flex justify-content-end mb-2">
-        <button onClick={addSupplier} className="btn btn-success btn-sm">
-          Add New Supplier
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="flex justify-content-start mb-2">
+        <button onClick={back} className="btn btn-success btn-sm">
+          Back To Home
         </button>
+        </div>
+        <div className="d-flex justify-content-end mb-2">
+          <button onClick={addSupplier} className="btn btn-success btn-sm">
+            Add New Supplier
+          </button>
+        </div>
       </div>
       <Table
         className="item-center mt-4 flex justify-content-center"
@@ -81,7 +112,7 @@ const SupplierTable = () => {
               phone={suppply.phone}
               key={suppply.id}
               // addSupplier={addSupplier}
-              // handleDelete={handleDelete}
+              handleDelete={handleDelete}
               handleUpdate={handleUpdate}
               // handleSupplier={() => navigate("/supplier")}
             />
