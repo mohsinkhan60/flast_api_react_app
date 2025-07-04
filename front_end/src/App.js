@@ -11,6 +11,7 @@ import SupplierTable from "./components/SupplierTable";
 import UpdateSupplier from "./components/UpdateSupplier";
 import UpdateSupplierContextProvider from "./updateSupplierContext";
 import AddSupplier from "./components/AddSupplier";
+import SentEmail from "./components/SentEmail";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                   <Routes>
                     <Route exact path="/" element={<ProductsTable />} />
                     <Route exact path="/supplier" element={<SupplierTable />} />
+                    <Route exact path="/sentemail" element={<SentEmail />} />
                     <Route
                       exact
                       path="/updateproduct/:id"
